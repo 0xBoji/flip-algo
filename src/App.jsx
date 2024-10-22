@@ -12,18 +12,15 @@ function App() {
   const [accountAddress, setAccountAddress] = useState(null)
 
   useEffect(() => {
-    // Reconnect to the session when the component is mounted
     peraWallet.reconnectSession().then((accounts) => {
       if (accounts.length) {
         setAccountAddress(accounts[0])
       }
     })
 
-    // Handle disconnect event
     peraWallet.connector?.on('disconnect', handleDisconnectWalletClick)
 
     return () => {
-      // Remove event listener on component unmount
       peraWallet.connector?.off('disconnect', handleDisconnectWalletClick)
     }
   }, [])
